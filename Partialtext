@@ -1,0 +1,29 @@
+package SeleniumTest;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class Partialtext {
+
+	static WebDriver webDriver;
+
+	public static void main(final String[] args) throws InterruptedException {
+  
+		// Telling the system where to find the chrome driver
+		System.setProperty("webdriver.chrome.driver", "C://Path//TO/chromedriver.exe");
+		String baseURL = "http://demo.guru99.com/test/newtours/";
+
+		webDriver = new ChromeDriver();
+
+		webDriver.get(baseURL);
+		String theLinkText = webDriver.findElement(By.partialLinkText("egis")).getText();
+		System.out.println(theLinkText);
+		theLinkText = webDriver.findElement(By.partialLinkText("EGIS")).getText();
+		System.out.println(theLinkText);
+
+		webDriver.quit();
+	}
+}
