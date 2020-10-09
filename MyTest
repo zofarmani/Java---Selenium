@@ -1,0 +1,51 @@
+package SeleniumTest;
+
+
+import java.util.jar.Attributes.Name;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+public class MyTest {
+
+	static WebDriver driver;
+
+    public static void main(final String[] args) throws InterruptedException {
+        // Telling the system where to find the chrome driver
+        System.setProperty(
+                "webdriver.chrome.driver",
+                "C://Path//TO/chromedriver.exe");
+
+        
+        driver = new ChromeDriver();
+        
+    	String baseUrl = "https://www.qeshmpishe.com/contact-us";
+		// Open the Chrome browser
+		driver.get(baseUrl);
+        
+    String   username = "Ki_Netherlands";
+		String	 password = "123456789" ;				
+		String mytextbody = " We are no joking!"; 
+		String email = "Ingrid_Rude@WESTSWK.NL";
+	
+		
+		for (int i = 1; i <= 15000; i++) {
+		
+		driver.findElement(By.id("jform_contact_name")).sendKeys(username);
+		driver.findElement(By.cssSelector("input[type = 'email']")).sendKeys(email);
+		driver.findElement(By.id("jform_contact_emailmsg")).sendKeys(password);
+		driver.findElement(By.id("jform_contact_message")).sendKeys(i + mytextbody);
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(50);
+		driver.findElement(By.linkText("ارتباط با ما")).click();
+		//Thread.sleep(50);
+		driver.close();
+		}
+		
+    }
+
+
+
+}
+ 
