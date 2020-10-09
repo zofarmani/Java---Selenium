@@ -30,7 +30,7 @@ public class IdentifyingLocators {
         driver.findElement(By.cssSelector("#login-body > div.mbr-desktop-hd > span.column.help.txt-align-right > a")).click();
         
         
-        webDriver.quit();
+        driver.quit();
        
 
 }
