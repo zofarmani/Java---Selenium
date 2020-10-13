@@ -1,0 +1,58 @@
+import java.io.Reader;
+import java.util.Scanner;
+import java.util.jar.Attributes.Name;
+
+public class Mirror {
+
+	public static void main(String args[]) {
+
+		Scanner reader = new Scanner(System.in);
+		System.out.print("Enter a number");
+		int number;
+		number = reader.nextInt();
+		
+		int b=number;
+		if (number > 10000 && number<999) {
+			System.out.println("invalid number");
+		} else {
+			boolean javab = is_mirror(number);
+			System.out.println(javab);
+
+		}
+	}
+
+	private static boolean is_mirror(int number) {
+		boolean a=false;
+		// Digits
+		int forth, third, second, first;
+
+		do {
+			// get 4th digit
+			forth = (number % 10);
+			number = number / 10;
+
+			// get 3th digit
+			third = (number % 10);
+			number = number / 10;
+
+			// get 2nd digit
+			second = (number % 10);
+			number = number / 10;
+
+			// get first digit
+			first = (number % 10);
+
+		} while (number > 9);
+
+//---------------(number > 999)-----------------------------
+
+			if (first == forth && second == third) {
+				 a=true;
+			} else {
+				 a=false;
+			}
+			
+		
+		return a;
+	}
+}
