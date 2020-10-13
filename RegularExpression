@@ -1,0 +1,38 @@
+
+
+
+	import org.openqa.selenium.By;
+	import org.openqa.selenium.WebDriver;
+	import org.openqa.selenium.WebElement;
+	import org.openqa.selenium.chrome.ChromeDriver;
+
+	public class RegularExpression {
+	    static WebDriver driver;
+
+	    public static void main(final String[] args) throws InterruptedException {
+	        // Telling the system where to find the chrome driver
+	        System.setProperty(
+	                "webdriver.chrome.driver",
+	                "C://Path//TO/chromedriver.exe");
+
+	        
+	        driver = new ChromeDriver();
+			
+			//URL in the browser
+	        driver.get("https://login.yahoo.com/");
+	        
+	      //find element regular expression Xpath
+	      ////tagname[contains(@attribute,'value')]
+	        driver.findElement(By.xpath("//input[contains(@id,'username')]")).sendKeys("zofarmani@yahoo.com");
+	        
+	        //find element regular expression Css
+		    //tagname[attribute*='value']
+	        driver.findElement(By.cssSelector("input[name*='signin']")).click();
+	        driver.findElement(By.cssSelector("#username-error")).getText();
+	        
+	        
+	        driver.close();
+	        
+	        
+}
+}
