@@ -1,0 +1,53 @@
+
+
+
+	import org.openqa.selenium.By;
+	import org.openqa.selenium.WebDriver;
+	import org.openqa.selenium.WebElement;
+	import org.openqa.selenium.chrome.ChromeDriver;
+
+	public class DropDawnLooping {
+	    static WebDriver driver;
+
+	    public static void main(final String[] args) throws InterruptedException {
+	        // Telling the system where to find the chrome driver
+	        System.setProperty(
+	                "webdriver.chrome.driver",
+	                "C://Path//TO/chromedriver.exe");
+
+	        
+	        driver = new ChromeDriver();
+			
+			//URL in the browser
+	        driver.get("https://www.armeniafly.com/en");
+	        driver.findElement(By.xpath("//*[@id=\"reservation-data\"]/div/div[4]/button/span[1]")).click();
+	        
+	    
+	        //Wait for 2 Sec
+	        Thread.sleep(2000L);
+	      
+	        /*
+	        //looping with While
+	        int i=1;
+	        while (i<4)
+	        {
+	        	driver.findElement(By.xpath("//*[@id=\"reservation-form-button-adult-inc\"]/span")).click();
+	        	i++;
+	        	
+	        }
+	      */
+	        
+	        System.out.println(driver.findElement(By.xpath("//*[@id=\"reservation-data\"]/div/div[4]/button/span[1]")).getText());
+	        //looping with For
+	        for (int i=1;i<4;i++)
+	        {
+	        	driver.findElement(By.xpath("//*[@id=\"reservation-form-button-adult-inc\"]/span")).click();
+	        }
+	        	
+	        System.out.println(driver.findElement(By.xpath("//*[@id=\"reservation-data\"]/div/div[4]/button/span[1]")).getText());
+	        
+	        driver.close();
+	   
+	
+}
+}
