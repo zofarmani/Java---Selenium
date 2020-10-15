@@ -1,0 +1,53 @@
+//This code tries to select a dynamically created element and click on it!
+
+
+
+import org.ietf.jgss.MessageProp;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class DynamicDropDown {
+	static WebDriver driver;
+
+	public static void main(final String[] args) throws InterruptedException {
+		// Telling the system where to find the chrome driver
+		System.setProperty("webdriver.chrome.driver", "C://Path//TO/chromedriver.exe");
+
+		driver = new ChromeDriver();
+
+		// URL in the browser
+		driver.get("https://www.spicejet.com/");
+		driver.findElement(By.id("ctl00_mainContent_ddl_originStation1_CTXTaction")).click();
+		/*
+		 * driver.findElement(By.xpath("//a[@value='BLR']")).click();
+		 * 
+		 * 
+		 * 
+		 * //driver.findElement(By.
+		 * cssSelector("#ctl00_mainContent_ddl_destinationStation1_CTNR > a[value = 'IXY']"
+		 * )).click(); while ( driver.findElements(
+		 * By.id("ctl00_mainContent_ddl_destinationStation1_CTNR") ).size() == 0 )
+		 * System.out.println("Hey wait! I'm still not exist!!");
+		 * 
+		 * System.out.println("I'm exist! He He He"); driver.findElement(By.
+		 * cssSelector("div[id ='ctl00_mainContent_ddl_destinationStation1_CTNR'] a[value='IXY']"
+		 * )).click();
+		 * 
+		 * 
+		 * //driver.close();
+		 */
+
+		driver.findElement(By.xpath("//a[@value='IXB']")).click();
+    
+    //Repeat and check if element exsist
+
+		while (driver.findElements(By.id("ctl00_mainContent_ddl_destinationStation1_CTNR")).size() == 0)
+			System.out.println("Hey wait! I'm still not exist!");
+
+		driver.findElement(By.xpath("(//a[@value='CCU'])[2]")).click();
+
+	}
+}
