@@ -1,0 +1,48 @@
+//This script search a string and selects an option from a list and clicks on it.
+
+import java.util.List;
+
+import org.ietf.jgss.MessageProp;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class AutoSuggestive {
+	static WebDriver driver;
+
+	public static void main(final String[] args) throws InterruptedException {
+		// Telling the system where to find the chrome driver
+		System.setProperty("webdriver.chrome.driver", "C://Path//TO/chromedriver.exe");
+
+		driver = new ChromeDriver();
+
+		// URL in the browser
+		driver.get("https://www.mahan.aero/en/");
+		driver.findElement(By.xpath("//*[@id=\"menu-tabs\"]/ul/li[1]")).click();
+		driver.findElement(By.id("jqauto-book-departure")).sendKeys("Sabz");
+		
+		Thread.sleep(1000);
+		
+		List<WebElement> options = driver.findElements(By.cssSelector("#bookingform #ui-id-1"));
+		
+		for(WebElement option :options)
+
+		{
+
+		if(option.getText().contains("AFZ"))
+
+		{
+
+		option.click();
+
+		break;
+		}
+		
+
+	
+		}
+
+	}
+}
