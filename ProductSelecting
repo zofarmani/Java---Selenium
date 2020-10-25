@@ -1,0 +1,49 @@
+//This class select some products and display total price.
+
+
+package mytests;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class ListOfProduct {
+
+	static WebDriver driver;
+
+	public static void main(final String[] args) throws InterruptedException {
+
+		// telling the system to open chrome driver
+		System.setProperty("webdriver.chrome.driver", "C://Path//TO/chromedriver.exe");
+
+		driver = new ChromeDriver();
+		driver.get("https://www.prada.com/de/de/women/bags/backpacks.html#");
+		int total = 0;
+
+		List<WebElement> Products = driver.findElements(By.cssSelector(".productQB__title"));
+		List<WebElement> Prices = driver.findElements(By.cssSelector(".productQB__price"));
+		// String NeededProduct;
+
+		// Finding all products with given pattern in their name
+		for (int i = 0; i < Products.size(); i++) {
+
+			String Pname = Products.get(i).getText();
+			if (Pname.contains("Nylon")) {
+
+				String[] splitedprice = Prices.get(i).getText().split(" ");
+				splitedprice[1] = splitedprice[1].replace(".", "");
+				// add relevant price to the total
+				total = total + Integer.parseInt(splitedprice[1]);
+
+			}
+		}
+		// Print total price
+		System.out.println("Total Price of above lists is " + total);
+
+		driver.close();
+
+	}
+}
