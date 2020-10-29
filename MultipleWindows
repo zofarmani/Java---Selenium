@@ -1,0 +1,59 @@
+//how to handle Multiple Windows
+
+package mytests;
+
+import java.awt.RenderingHints.Key;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class MultipleWindows {
+
+	static WebDriver driver;
+
+	public static void main(final String[] args) throws InterruptedException {
+
+		// telling the system to open chrome driver
+		System.setProperty("webdriver.chrome.driver", "C://Path//TO/chromedriver.exe");
+
+		driver = new ChromeDriver();
+		driver.get(
+				"https://login.yahoo.com/account/create?lang=de-DE&src=ym&done=https%3A%2F%2Fmail.yahoo.com%2F%3Fguce_referrer%3DaHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8%26guce_referrer_sig%3DAQAAAJcKtrtBhwKvWGIogaJf38AmyE6TZMryZEqfiesUI6XYrbPkmgvjzXAueKTSP88AFs5tOfAZ8Rp7iSPxyB8m9HLAEBweqmFtBSvIXx-iS4M9xTSTJ5mxnH-FqHRcE9oDoU_hr0OysT7H4VsFg0COsyMzBqlkxOLiFhZKOJjRqSZj&specId=yidReg");
+		driver.manage().window().maximize();
+
+		driver.findElement(By.cssSelector(".conditionForCommServicesLink")).click();
+		System.out.println("befor switching");
+		System.out.println(driver.getTitle());
+
+		// how to handle windows
+		Set<String> ids = driver.getWindowHandles();
+		Iterator<String> it = ids.iterator();
+		String parentid = it.next();
+		String childid = it.next();
+
+		// switching to child
+		driver.switchTo().window(childid);
+		System.out.println("after switching");
+		System.out.println(driver.getTitle());
+
+		// switching back to paren
+		driver.switchTo().window(parentid);
+		System.out.println("switching back to parent");
+		System.out.println(driver.getTitle());
+
+		driver.quit();
+
+	}
+}
