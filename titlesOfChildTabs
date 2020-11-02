@@ -1,0 +1,64 @@
+
+package mytests;
+
+import java.awt.RenderingHints.Key;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class titlesOfChildTabs {
+
+	static WebDriver driver;
+
+	public static void main(final String[] args) throws InterruptedException {
+
+		// telling the system to open chrome driver
+		System.setProperty("webdriver.chrome.driver", "C://Path//TO/chromedriver.exe");
+
+		driver = new ChromeDriver();
+		driver.get("https://www.amazon.de");
+
+		// how many of links are there on the page
+		System.out.println(driver.findElements(By.tagName("a")).size());
+
+		// how many of links are there on the footer
+		WebElement footer = driver.findElement(By.id("navFooter"));
+		System.out.println(footer.findElements(By.tagName("a")).size());
+
+		// how many of links are there on the column of footer
+		WebElement column = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[5]/div[1]/div[1]/div[1]/ul[1]"));
+		System.out.println(column.findElements(By.tagName("a")).size());
+
+		// click on each link in the column and check if the pages are opening-
+		for (int i = 1; i < column.findElements(By.tagName("a")).size(); i++) {
+			String clickonlink = Keys.chord(Keys.CONTROL, Keys.ENTER);
+			column.findElements(By.tagName("a")).get(i).sendKeys(clickonlink);
+			Thread.sleep(5000L);
+
+		}
+
+		// opens all the tabs
+		Set<String> tab = driver.getWindowHandles();
+
+		Iterator<String> it = tab.iterator();
+
+		while (it.hasNext()) {
+
+			driver.switchTo().window(it.next());
+			System.out.println(driver.getTitle());
+
+		}
+	}
+}
