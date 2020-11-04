@@ -1,0 +1,71 @@
+//How to handle table 
+
+package mytests;
+
+import java.awt.RenderingHints.Key;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class exercisesOnTables {
+
+	static WebDriver driver;
+
+	public static void main(final String[] args) throws InterruptedException {
+
+		// telling the system to open chrome driver
+		System.setProperty("webdriver.chrome.driver", "C://Path//TO/chromedriver.exe");
+		int sum = 0;
+		driver = new ChromeDriver();
+		driver.get(
+				"http://www.cricbuzz.com/live-cricket-scorecard/18970/pak-vs-sl-2nd-t20i-pakistan-v-sri-lanka-in-uae-2017");
+
+		// select 3. Table
+		WebElement table = driver.findElement(By.xpath("//div[@id='innings_2']"));
+
+		// select 3. column
+		int columncount = table.findElements(By.cssSelector("div[class='cb-col cb-col-100 cb-scrd-itms']")).size();
+
+		int count = table.findElements(By.cssSelector("div[class='cb-col cb-col-100 cb-scrd-itms'] div:nth-child(3)"))
+				.size();
+
+		// sum values
+		for (int i = 0; i < count - 2; i++) {
+			String value = table
+					.findElements(By.cssSelector("div[class='cb-col cb-col-100 cb-scrd-itms'] div:nth-child(3)")).get(i)
+					.getText();
+			int valueinteger = Integer.parseInt(value);
+			System.out.println(value);
+			sum = sum + valueinteger;
+		}
+		System.out.println(sum);
+
+		// plus extras
+		String Extras = table.findElement(By.xpath("//div[@id='innings_2']/div[1]/div[13]/div[2]")).getText();
+		int extrasValue = Integer.parseInt(Extras);
+		int TotalSumValue = sum + extrasValue;
+		System.out.println(TotalSumValue);
+
+		// compare total and actual total
+		String ActualTotal = driver.findElement(By.xpath("//div[@id='innings_2']/div[1]/div[14]/div[2]")).getText();
+		int ActualTotalVAlue = Integer.parseInt(ActualTotal);
+		if (ActualTotalVAlue == TotalSumValue) {
+			System.out.println("Count Matches");
+		} else {
+			System.out.println("count fails");
+
+		}
+	}
+}
